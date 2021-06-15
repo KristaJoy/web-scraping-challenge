@@ -8,21 +8,29 @@ app = Flask(__name__)
 mongo = PyMongo(app, uri="mongodb://localhost:27017/mars_app")
 
 @app.route("/")
-def index():
+def home():
     # Finds one record of data from mongo database
-    mars_info = mongo.db.collection.find_one()
-    
+    mars_data = mongo.db.collection.find_one()
+    if mars_data:
     # Return template with data
-    return render_template("index.html", listing=mars_info)
+        return render_template("index.html", listing=mars_data)
+    else:
+        mars_data = mars_data = {
+        "news_title": "",
+        "news_p": "",
+        "featured_image_url": "",
+        "hemisphere_image_urls": {"title":["", "", "", ""], "img_url":["", "", "", ""],
+        "mars_data_table": "<div><\div>"}}
+        return render_template("index.html", listing=mars_data)
 
 
 @app.route("/scrape")
 def scraper():
     # Runs the scrape function 
-    mars_data = scrape()
+    scraped = scrape()
     
     # Update the Mongo database
-    mongo.db.collection.update({}, mars_data, upsert=True)
+    mongo.db.collection.update({}, scraped, upsert=True)
 
     # Redirect back to home page
     return redirect("/", code=302)

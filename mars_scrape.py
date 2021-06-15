@@ -144,7 +144,7 @@ def scrape():
 
     # Use pandas to find a table on website
     tables = pd.read_html(url)
-    mars_df = tables[1]
+    mars_df = tables[0]
     mars_df
 
 
@@ -153,22 +153,23 @@ def scrape():
 
     # Clean up dataframe
     mars_df.set_index(0, inplace=True)
-    mars_df.columns = ['Mars Planet Profile']
-    mars_df.index.names = ['']
+    mars_df.columns = ['Mars', 'Earth']
+    mars_df.index.names = ['Description']
 
 
     # In[100]:
 
 
     # Preview final dataframe
-    mars_df
+    mars_df.drop(['Mars - Earth Comparison'])
 
 
     # In[101]:
 
 
     # Export to html
-    mars_df.to_html('table.html')
+    mars_data_table = mars_df.to_html(border=1, justify='left')
+    print(mars_data_table)
 
 
     # ## Mars Hemispheres
@@ -213,7 +214,7 @@ def scrape():
             hemisphere_image_urls['title'].append(title)
         else:
             hemisphere_image_urls['title'] = [title]
-        desc = soup.find('div', class_='description')
+        desc = soup.find('div', class_='downloads')
         img_loc = desc.a['href']
         img_path = (f'{url}{img_loc}')
         if 'img_url' in hemisphere_image_urls:
@@ -239,8 +240,8 @@ def scrape():
         "news_title": news_title,
         "news_p": news_p,
         "featured_image_url": featured_image_url,
-        "hemisphere_image_urls": hemisphere_image_urls
-
+        "hemisphere_image_urls": hemisphere_image_urls,
+        "mars_data_table": mars_data_table
     }
 
     return mars_data

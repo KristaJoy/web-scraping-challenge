@@ -21,25 +21,64 @@
     </div> 
 
     <br>
-
-    <h2>Latest Mars News</h2>
-    {{ listing.news_title }}
-    {{ listing.news_p }}
-
-    <h2>Featured Mars Image</h2>
-    {{ listing.featured_image_url }}
-
-    <h3>Mars Facts</h3>
-        table.html
-
-    <h2>Mars Hemispheres</h2>
-    <div class="card" style="width: 18rem;">
-        <img class="card-img-top" src='{{listing.hemisphere_image_urls.img_url[0]}}' alt={{listing.hemisphere_image_urls.title[0]}}>
-        <div class="card-body">
-          <h5 class="card-title">{{listing.hemisphere_image_urls.title[0]}}</h5>
+    <div class="container">
+      <div class="row-cols-1">
+        <h2>Latest Mars News</h2>
+        <h5>{{listing.news_title[0]}}</h5>
+        <p>{{listing.news_p[0]}}</p>
+      </div>
+      <div class="row">
+        <div class="col">
+          <h2>Featured Mars Image</h2>
+          <img src="{{ listing.featured_image_url }}" alt="featured image">
+        </div>
+        <div class="col">
+          <h5>Mars Facts</h5>
+          <div class="table-responsive table table-striped table-bordered border-dark">
+            {{listing.mars_data_table | safe}}
+          </div>
+        </div>  
+      </div>
+      <br>
+      <h2 style="text-align: center">Mars Hemispheres</h2>
+      <hr>
+      <div class="row row-cols-1 row-cols-md-4 g-4">
+        <div class="col">
+          <div class="card">
+            <img src="{{listing.hemisphere_image_urls.img_url[0]}}" class="card-img-top" alt="{{listing.hemisphere_image_urls.title[0]}}">
+            <div class="card-body">
+              <h5 class="card-title">{{listing.hemisphere_image_urls.title[0]}}</h5>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card">
+            <img src="{{listing.hemisphere_image_urls.img_url[1]}}" class="card-img-top" alt="{{listing.hemisphere_image_urls.title[1]}}">
+            <div class="card-body">
+              <h5 class="card-title">{{listing.hemisphere_image_urls.title[1]}}</h5>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card">
+            <img src="{{listing.hemisphere_image_urls.img_url[2]}}" class="card-img-top" alt="{{listing.hemisphere_image_urls.title[2]}}">
+            <div class="card-body">
+              <h5 class="card-title">{{listing.hemisphere_image_urls.title[2]}}</h5>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card">
+            <img src="{{listing.hemisphere_image_urls.img_url[3]}}" class="card-img-top" alt="{{listing.hemisphere_image_urls.title[3]}}">
+            <div class="card-body">
+              <h5 class="card-title">{{listing.hemisphere_image_urls.title[3]}}</h5>
+            </div>
+          </div>
         </div>
       </div>
 
+    </div>
+  </div>
 </body>
 
 </html>
